@@ -62,11 +62,11 @@ def checksourceplate(counts, sname, platetype):
             coord.append(char+str(col+1))
 
     if platetype is None:
-        DV = 4 #Assume using a low dead volume plate
-        MV = 12
+        DV = 15 #Assume using a regular dead volume plate
+        MV = 60
     elif platetype == 'LDVplate':
-        DV = 4 #dead volume for a regular dead volume plate
-        MV = 12
+        DV = 4.5 #dead volume for a regular dead volume plate
+        MV = 14
     elif platetype == 'rDVplate':
         DV = 15 #dead volume for a regular dead volume plate
         MV = 60
