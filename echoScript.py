@@ -162,9 +162,9 @@ def makepicklists(rawdf, allsourcepl,dname):
 
         #Assume a regular dead volume plate
         if rawdf.loc[i].Enzyme == 'BsaI':
-            mmpicklist.loc[i] = ['Source[1]',coord_threeeightyfour[i/29],'Destination[1]',coord_ninetysix[i],1800]
+            mmpicklist.loc[i] = ['Source[1]',coord_threeeightyfour[i/25],'Destination[1]',coord_ninetysix[i],1600]
         else:
-            mmpicklist.loc[i] = ['Source[1]',coord_threeeightyfour[i/29 + 24],'Destination[1]',coord_ninetysix[i],1800]
+            mmpicklist.loc[i] = ['Source[1]',coord_threeeightyfour[i/25 + 24],'Destination[1]',coord_ninetysix[i],1600]
 
     date = time.strftime("%Y%m%d")
 
