@@ -26,9 +26,10 @@ import cPickle as pkl
 import time
 import argparse
 import os.path
+from collections import OrderedDict
 
 #Import the csv
-def import_instructions(fname):
+def importGG_instructions(fname):
     rawdf = pd.read_csv(fname,names=['GoldenGate','Marker','Pieces','Enzyme','Sequence'])
     return rawdf
 
@@ -49,7 +50,7 @@ def newsourceplate():
     for char in ascii_uppercase[0:16]:
         for col in range(24):
             coord.append(char+str(col+1))
-            sourcepl = dict.fromkeys(coord)
+            sourcepl = OrderedDict.fromkeys(coord)
     return sourcepl
 
 # Now import existing source plate, or if none then generate a new source plate
@@ -143,7 +144,7 @@ def makepicklists(rawdf, allsourcepl,dname):
     plasmidpicklist = pd.DataFrame(columns = ['Source Plate Name', 'Source Well', 'Destination Plate Name', 'Destination Well', 'Transfer Volume'])
     mmpicklist = pd.DataFrame(columns = ['Source Plate Name', 'Source Well', 'Destination Plate Name', 'Destination Well', 'Transfer Volume'])
 
-    destinationloc = dict()
+    destinationloc = OrderedDict()
 
     j=0
     for i in rawdf.index:
@@ -195,6 +196,7 @@ def makepicklists(rawdf, allsourcepl,dname):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+
     parser.add_argument('-f', action='store', dest = 'fname', type=str,
         help = 'CSV file of Dueber lab output')
     parser.add_argument('-s', action='store', dest = 'sname', type=str, default = None,
@@ -205,7 +207,7 @@ if __name__ == "__main__":
         help = 'Destination for new source plate file (no need for .p ext)')
 
     args = vars(parser.parse_args())
-    rawdf = import_instructions(args['fname'])
+    rawdf = importGG_instructions(args['fname'])
     counts = getparts(rawdf)
     allsourcepl, userinstr = checksourceplate(counts,args['sname'],args['platetype'])
     destinationloc, plasmidpicklist, mmpicklist = makepicklists(rawdf,allsourcepl,args['dname'])
